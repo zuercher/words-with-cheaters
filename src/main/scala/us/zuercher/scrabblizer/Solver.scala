@@ -6,7 +6,17 @@ sealed trait Orientation
 case object Vertical extends Orientation
 case object Horizontal extends Orientation
 
-case class Play(word: String, location: Location, orientation: Orientation, score: Int)
+case class Play(word: String, location: Location, orientation: Orientation, score: Int) {
+  lazy val toFormattedString: String = {
+    "%7s r%2d, c%2d %10s %3d".format(
+      word,
+      location.row,
+      location.col,
+      orientation.toString.toLowerCase,
+      score
+    )
+  }
+}
 
 object Solver {
   def apply(startingPosition: Position, handLetters: String): Seq[(Play, Position)] = {

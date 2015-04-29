@@ -1,6 +1,6 @@
 package us.zuercher.scrabblizer
 
-import java.io.{File, FileInputStream}
+import java.io.{BufferedWriter, File, FileInputStream, FileWriter}
 import scala.collection.mutable
 
 case class InvalidBoardDataException(msg: String) extends Exception(msg)
@@ -380,5 +380,27 @@ class Position private[Position](
         }
       }.mkString
     }.mkString("\n")
+  }
+
+  def store(file: File) {
+    val writer = new BufferedWriter(new FileWriter(file))
+    try {
+      (0 until board.size).map { r =>
+        val row =
+          (0 until board.size).map { c =>
+            position(Location(r, c)) match {
+              case Empty => '_'
+              case Existing(ch, true) => Character.toLowerCase(ch)
+              case Existing(ch, false) => Character.toUpperCase(ch)
+              case Check(ch, true) => Character.toLowerCase(ch)
+              case Check(ch, false) => Character.toUpperCase(ch)
+            }
+          }.mkString
+        writer.write(row)
+        writer.newLine()
+      }      
+    } finally {
+      writer.close()
+    }
   }
 }

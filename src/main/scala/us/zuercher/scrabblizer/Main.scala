@@ -12,15 +12,17 @@ object Main extends App {
   val boardFlag = flag[String]("board", "path to a board file")
   val handFlag = flag[String]("hand", "hand to use for solving a board")
 
+  val interactive = flag("interactive", false, "enables interactive mode")
+
   def main() {
     findFlag.get match {
       case Some(searchTerm) => return find(searchTerm)
       case None => ()
     }
 
-    (wordsWithFriendsFlag.get, boardFlag.get, handFlag.get) match {
-      case (Some(true), Some(board), Some(hand)) =>
-        return solveWordsWithFriends(new File(board), hand)
+    (wordsWithFriendsFlag(), boardFlag.get, handFlag.get) match {
+      case (true, Some(board), Some(hand)) =>
+        return solveWordsWithFriends(new File(board), hand, interactive())
       case _ => ()
     }
 
@@ -33,41 +35,45 @@ object Main extends App {
     println(matches.mkString("\n"))
   }
 
-  def solveWordsWithFriends(boardFile: File, hand: String) {
+  def reportElapsed[T](desc: String)(f: => T): T = {
     val stopwatch = Stopwatch.start()
+    val result = f
+    val elapsed = stopwatch()
+    println(s"$desc $elapsed")
+    result
+  }  
 
+  def dumpSolutions(plays: Seq[(Play, Position)], n: Int = 25, showBest: Boolean = true) {
+    val topN = plays.take(n)
+    println("Top %d:".format(topN.length))
+    topN foreach { case (play, _) =>
+      println(play.toFormattedString)
+    }
+  
+    if (showBest) {
+      plays.headOption foreach { case (play, position) =>
+        println()
+        println("Best:")
+        println(play.toFormattedString)
+        println(position)
+      }
+    }
+  }  
+
+  def solveWordsWithFriends(boardFile: File, hand: String, interactive: Boolean) {
     val startingPosition = Position.parse(WordsWithFriends.board, boardFile)
 
     val parsedHand = hand.toUpperCase.replace('*', ' ')
 
-    val plays = Solver(startingPosition, parsedHand)
-    plays foreach { case (Play(word, location, orientation, score), position) =>
-      println(
-        "%7s r%2d, c%2d %10s %3d".format(
-          word,
-          location.row,
-          location.col,
-          orientation.toString.toLowerCase,
-          score
-        )
-      )
-    }
+    val plays = 
+      reportElapsed("solve time ") {
+        Solver(startingPosition, parsedHand)
+      }
 
-    plays.headOption foreach { case (Play(word, location, orientation, score), position) =>
-        println("Best:")
-        println(
-          "%7s r%2d, c%2d %10s %3d".format(
-            word,
-            location.row,
-            location.col,
-            orientation.toString.toLowerCase,
-            score
-          )
-        )
-        println(position)
+    if (interactive) {
+      InteractiveSolver(boardFile, plays)
+    } else {
+      dumpSolutions(plays)
     }
-
-    val elapsed = stopwatch()
-    println("Runtime: %s".format(elapsed))
   }
 }
