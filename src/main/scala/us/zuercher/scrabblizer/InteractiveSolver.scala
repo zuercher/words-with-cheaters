@@ -13,7 +13,6 @@ object InteractiveSolver {
 
   @tailrec
   def apply(output: File, plays: Seq[(Play, Position)], start: Int = 0, limit: Int = 10) {
-    println(s"start: $start")
     val shown = plays.drop(start).take(limit)
     shown.zipWithIndex foreach { case ((play, _), index) =>
       println("%4d) ".format(start + index) + play.toFormattedString)
@@ -31,9 +30,7 @@ object InteractiveSolver {
             Pick(choice)
 	  }
 
-      case Some("N") => 
-        println(s"start: $start, limit $limit, plays.length ${plays.length}")
-        Show((start + limit) min (plays.length - limit))
+      case Some("N") => Show((start + limit) min (plays.length - limit))
       case Some("P") => Show((start - limit) max 0)
       case _ => Show(start)
     }
