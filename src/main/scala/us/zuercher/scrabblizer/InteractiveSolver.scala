@@ -39,6 +39,7 @@ object InteractiveSolver {
       case Quit(message) => println(message)
       case Pick(choice) =>
         val (_, position) = plays(choice)
+	println(position)
 	position.store(output)
       case Show(newStart) => apply(output, plays, newStart, limit)
     }    
