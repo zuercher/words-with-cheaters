@@ -41,7 +41,7 @@ object Main extends App {
     val elapsed = stopwatch()
     println(s"$desc $elapsed")
     result
-  }  
+  }
 
   def dumpSolutions(plays: Seq[(Play, Position)], n: Int = 25, showBest: Boolean = true) {
     val topN = plays.take(n)
@@ -49,7 +49,7 @@ object Main extends App {
     topN foreach { case (play, _) =>
       println(play.toFormattedString)
     }
-  
+
     if (showBest) {
       plays.headOption foreach { case (play, position) =>
         println()
@@ -58,14 +58,14 @@ object Main extends App {
         println(position)
       }
     }
-  }  
+  }
 
   def solveWordsWithFriends(boardFile: File, hand: String, interactive: Boolean) {
     val startingPosition = Position.parse(WordsWithFriends.board, boardFile)
 
     val parsedHand = hand.toUpperCase.replace('*', ' ')
 
-    val plays = 
+    val plays =
       reportElapsed("solve time ") {
         Solver(startingPosition, parsedHand)
       }

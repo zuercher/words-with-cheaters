@@ -22,13 +22,13 @@ object InteractiveSolver {
     val choice =
       input match {
         case Some("Q") | None => Quit("quitting")
-        case Some(Numeric(str)) => 
+        case Some(Numeric(str)) =>
           val choice = str.toInt
           if (choice >= plays.length) {
             Show(start)
           }  else {
             Pick(choice)
-	  }
+          }
 
       case Some("N") => Show((start + limit) min (plays.length - limit))
       case Some("P") => Show((start - limit) max 0)
@@ -39,9 +39,9 @@ object InteractiveSolver {
       case Quit(message) => println(message)
       case Pick(choice) =>
         val (_, position) = plays(choice)
-	println(position)
-	position.store(output)
+        println(position)
+        position.store(output)
       case Show(newStart) => apply(output, plays, newStart, limit)
-    }    
+    }
   }
 }

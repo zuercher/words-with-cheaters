@@ -398,7 +398,7 @@ class Position private[Position](
           }.mkString
         writer.write(row)
         writer.newLine()
-      }      
+      }
     } finally {
       writer.close()
     }

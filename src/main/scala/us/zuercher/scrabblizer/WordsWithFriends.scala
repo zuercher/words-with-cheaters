@@ -72,42 +72,46 @@ object WordsWithFriends  {
       size,
       wordsWithFriendsTileBag,
       wordsWithFriendsLetterScores,
-      mirror(
-        size,
-        Seq(
-          Location(1, 2),
-          Location(2, 1),
-          Location(2, 4),
-          Location(4, 2),
-          Location(4, 6),
-          Location(6, 4)
-        )
-      ),
-      mirror(
-        size,
-        Seq(
-          Location(0, 6),
-          Location(3, 3),
-          Location(5, 5),
-          Location(6, 0)
-        )
-      ),
-      mirror(
-        size,
-        Seq(
-          Location(1, 5),
-          Location(5, 1),
-          Location(3, 7),
-          Location(7, 3)
-        )
-      ),
-      mirror(
-        size,
-        Seq(
-          Location(0, 3),
-          Location(3, 0)
-        )
-      ),
+      doubleLetterScores =
+        mirror(
+          size,
+          Seq(
+            Location(1, 2),
+            Location(2, 1),
+            Location(2, 4),
+            Location(4, 2),
+            Location(4, 6),
+            Location(6, 4)
+          )
+        ),
+      tripleLetterScores =
+        mirror(
+          size,
+          Seq(
+            Location(0, 6),
+            Location(3, 3),
+            Location(5, 5),
+            Location(6, 0)
+          )
+        ),
+      doubleWordScores =
+        mirror(
+          size,
+          Seq(
+            Location(1, 5),
+            Location(5, 1),
+            Location(3, 7),
+            Location(7, 3)
+          )
+        ),
+      tripleWordScores =
+          mirror(
+          size,
+          Seq(
+            Location(0, 3),
+            Location(3, 0)
+          )
+        ),
       bingo = 35,
       Dictionary.fromFile("resource:words_with_friends.txt")
     )
