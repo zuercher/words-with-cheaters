@@ -71,7 +71,7 @@ object Main extends App {
       }
 
     if (interactive) {
-      InteractiveSolver(boardFile, plays)
+      InteractiveSolver(startingPosition.board, boardFile, plays).apply()
     } else {
       dumpSolutions(plays)
     }

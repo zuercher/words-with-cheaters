@@ -95,6 +95,8 @@ class Position private[Position](
 
   def size = board.size
 
+  def containsPlayedLocation(location: Location): Boolean = playedLocations.contains(location)
+
   def set(location: Location, tile: Tile): Position = {
     require(location.validFor(board), s"invalid location: $location")
     require(position(location) == Empty, s"cannot play on an existing location: $location")
