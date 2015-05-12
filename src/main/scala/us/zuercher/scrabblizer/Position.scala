@@ -153,7 +153,9 @@ class Position private[Position](
             }
           }
 
-        if (!perpendicularHasExisting) return Invalid("play not adjacent to previously played tiles")
+        if (!perpendicularHasExisting) {
+          return Invalid("play not adjacent to previously played tiles")
+        }
       }
     }
 
@@ -177,8 +179,13 @@ class Position private[Position](
     playedLocations.map { case (Location(_, c), _) => c }.toSet.size > 1
   }
   val isPlayHorizontal: Boolean = {
-    // consider single-letter plays horizontal
-   playedLocations.size == 1 || isPlayStrictlyHorizontal
+    if (playedLocations.size == 1) {
+      // consider single-letter plays horizontal (unless they form a vertical word)
+      val location = playedLocations.keys.head
+      findHorizontalLocations(location).size >= findVerticalLocations(location).size
+    } else {
+      isPlayStrictlyHorizontal
+    }
   }
 
   // presumes a valid board (particularly no gaps in words)
