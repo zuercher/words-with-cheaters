@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 import scala.collection.mutable.ListBuffer
 

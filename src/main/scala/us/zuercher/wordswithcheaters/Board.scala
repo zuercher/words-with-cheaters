@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 case class Location(row: Int, col: Int) {
   def validFor(board: Board) = row >= 0 && col >= 0 && row < board.size && col < board.size

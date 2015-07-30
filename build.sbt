@@ -1,4 +1,4 @@
-name := "scrabblizer"
+name := "words-with-cheaters"
 
 version := "1.0"
 

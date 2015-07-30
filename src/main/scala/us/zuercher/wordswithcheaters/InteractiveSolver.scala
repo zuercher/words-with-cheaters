@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 import java.io.File
 import scala.annotation.tailrec

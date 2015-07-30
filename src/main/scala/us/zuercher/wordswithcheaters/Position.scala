@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 import java.io.{BufferedWriter, File, FileInputStream, FileWriter}
 import scala.collection.mutable

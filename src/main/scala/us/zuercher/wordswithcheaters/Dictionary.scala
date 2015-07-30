@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 import com.google.common.base.Charsets
 import com.google.common.hash.{BloomFilter, Funnels}

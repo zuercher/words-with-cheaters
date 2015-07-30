@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 import java.io.{BufferedReader, FileInputStream, InputStream, InputStreamReader}
 

@@ -1,4 +1,4 @@
-package us.zuercher.scrabblizer
+package us.zuercher.wordswithcheaters
 
 import com.twitter.app.{App, Flag}
 import com.twitter.util.Stopwatch
